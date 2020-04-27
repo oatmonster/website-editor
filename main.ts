@@ -1,10 +1,28 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import * as url from 'url';
 import * as path from 'path';
 
 let mainWindow: BrowserWindow;
 
 function createWindow() {
+
+  let menu = Menu.buildFromTemplate( [
+    {
+      label: 'File',
+      submenu: [
+        { label: 'New Blog Post' },
+        { label: 'New Project' },
+        { type: 'separator' },
+        {
+          label: 'Exit',
+          role: 'quit'
+        }
+      ]
+    }
+  ] );
+
+  Menu.setApplicationMenu( menu );
+
   mainWindow = new BrowserWindow( {
     width: 800,
     height: 600,
