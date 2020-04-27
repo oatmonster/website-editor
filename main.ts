@@ -1,15 +1,15 @@
-const { app, BrowserWindow } = require( 'electron' )
-const url = require( 'url' );
-const path = require( 'path' );
+import { app, BrowserWindow } from 'electron';
+import * as url from 'url';
+import * as path from 'path';
 
-let mainWindow
+let mainWindow: BrowserWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow( {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false
     }
   } );
 

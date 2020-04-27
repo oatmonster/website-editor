@@ -1,0 +1,62 @@
+<ng-container *ngFor="let child of children">
+
+  <ng-container [ngSwitch]="child.type">
+
+    <!-- Headings -->
+    <ng-container *ngSwitchCase="'heading'">
+      <h1 *ngIf="child.depth === 1" [md-inline]="child"></h1>
+      <h2 *ngIf="child.depth === 2" [md-inline]="child"></h2>
+      <h3 *ngIf="child.depth === 3" [md-inline]="child"></h3>
+      <h4 *ngIf="child.depth === 4" [md-inline]="child"></h4>
+      <h5 *ngIf="child.depth === 5" [md-inline]="child"></h5>
+      <h6 *ngIf="child.depth === 6" [md-inline]="child"></h6>
+    </ng-container>
+
+    <!-- Paragraph -->
+    <p *ngSwitchCase="'paragraph'" [md-inline]="child"></p>
+
+    <!-- Lists -->
+    <ng-container *ngSwitchCase="'list'">
+      <ol *ngIf="child.ordered" [start]="child.start">
+        <li *ngFor="let item of child.children" [md-block]="item"></li>
+      </ol>
+      <ul *ngIf="!child.ordered">
+        <li *ngFor="let item of child.children" [md-block]="item"></li>
+      </ul>
+    </ng-container>
+
+    <!-- Tables -->
+    <table *ngSwitchCase="'table'">
+      <tbody>
+        <tr *ngFor="let row of child.children">
+          <td *ngFor="let cell of row.children; index as i" [attr.align]="child.align[i]||''" [md-inline]="cell"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Thematic Break -->
+    <hr *ngSwitchCase="'thematicBreak'" />
+
+    <!-- Blockquotes -->
+    <blockquote *ngSwitchCase="'blockquote'" [md-block]="child"></blockquote>
+
+    <!-- Left aligned block - Align plugin -->
+    <span *ngSwitchCase="'leftAligned'" align="left" [md-block]="child"></span>
+
+    <!-- Center aligned block - Align plugin -->
+    <span *ngSwitchCase="'centerAligned'" align="center" [md-block]="child"></span>
+
+    <!-- Right aligned block - Align plugin -->
+    <span *ngSwitchCase="'rightAligned'" align="right" [md-block]="child"></span>
+
+    <!-- Code Block w/ syntax highlighting by Prism -->
+    <pre *ngSwitchCase="'code'" [language]="child.lang" [source]="child.value"></pre>
+
+    <!-- Embedded video -->
+    <div *ngSwitchCase="'iframe'" class="embed-responsive embed-responsive-16by9 embed-video">
+      <iframe class="embed-responsive-item" [sanitizeSrc]="child.data.hProperties.src" allowfullscreen></iframe>
+    </div>
+
+  </ng-container>
+
+</ng-container>

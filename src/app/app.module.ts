@@ -1,16 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'
+
+import { MarkdownModule } from './markdown/markdown.module';
 
 import { AppComponent } from './app.component';
 
-@NgModule({
+@NgModule( {
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    MarkdownModule
+  ],
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule
+  providers: [
   ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+  bootstrap: [ AppComponent ]
+} )
 export class AppModule { }
