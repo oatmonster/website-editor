@@ -1,13 +1,50 @@
 <div class="row no-gutters">
   <div class="col-6 border-right ">
-    <div class="form">
+    <div class="scroll">
       <div class="container">
-        The form goes here
+        <form [formGroup]="blogForm">
+          <div class="form-group">
+            <label>
+              Title
+              <input type="text" class="form-control" formControlName="title">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Subtitle
+              <input type="text" class="form-control" formControlName="subtitle">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Post Date
+              <input type="date" class="form-control" formControlName="date">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Thumbnail URL
+              <input type="text" class="form-control" formControlName="thumbnailUrl">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Tags
+              <input type="text" class="form-control" formControlName="tags">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Content
+              <textarea class="form-control" formControlName="content"></textarea>
+            </label>
+          </div>
+        </form>
       </div>
     </div>
   </div>
   <div class="col-6 border-left ">
-    <div class="preview">
+    <div class="scroll">
       <div class="container">
         <div *ngIf="md" [markdown]="md"></div>
       </div>
