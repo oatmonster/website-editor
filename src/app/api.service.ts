@@ -1,14 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 
 @Injectable()
 export class ApiService {
 
+  private token;
+
   constructor( private httpClient: HttpClient ) { }
+
+  public login( password: string ) {
+    return this.httpClient.post( environment.apiUrl + 'login', { 'password': password } ).pipe(
+      map( ( res: any ) => {
+        this.token = res.token;
+        return true;
+      } ),
+      catchError( err => {
+        return of( false );
+      } )
+    );
+  }
+
+  public submitBlogPost( post ): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders( {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + ( this.token || '' )
+      } )
+    };
+
+    return this.httpClient.post( environment.apiUrl + 'blog', post, httpOptions ).pipe(
+      map( res => {
+        return true;
+      } ),
+      catchError( err => {
+        console.log( err );
+        return of( false );
+      } )
+    );
+  }
 
   public getBlogPosts( query?: { page?: number, tags?: string[] } ): Observable<Array<IBlogPost>> {
     let params = new HttpParams();

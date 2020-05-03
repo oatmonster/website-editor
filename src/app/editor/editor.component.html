@@ -2,7 +2,10 @@
   <div class="col-6 border-right ">
     <div class="scroll">
       <div class="container">
-        <form [formGroup]="blogForm">
+        <div>
+          <login></login>
+        </div>
+        <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label>
               Title
@@ -39,6 +42,8 @@
               <textarea class="form-control" formControlName="content"></textarea>
             </label>
           </div>
+          <button class="btn border" type="button">Cancel</button>
+          <button class="btn border" type="submit" [disabled]="!blogForm.valid">Submit</button>
         </form>
       </div>
     </div>
@@ -46,7 +51,8 @@
   <div class="col-6 border-left ">
     <div class="scroll">
       <div class="container">
-        <div *ngIf="md" [markdown]="md"></div>
+        Preview goes here
+        <!-- <div *ngIf="md" [markdown]="md"></div> -->
       </div>
     </div>
   </div>

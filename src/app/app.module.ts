@@ -10,6 +10,7 @@ import { EditorComponent } from './editor/editor.component';
 import { BrowserComponent } from './browser/browser.component';
 
 import { ApiService } from './api.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule( {
   imports: [
@@ -22,7 +23,8 @@ import { ApiService } from './api.service';
   declarations: [
     AppComponent,
     EditorComponent,
-    BrowserComponent
+    BrowserComponent,
+    LoginComponent
   ],
   providers: [
     ApiService
