@@ -10,7 +10,12 @@ function createWindow() {
     {
       label: 'File',
       submenu: [
-        { label: 'New Blog Post' },
+        {
+          label: 'New Blog Post',
+          click: async () => {
+            mainWindow.webContents.send( 'newBlog', null );
+          }
+        },
         { label: 'New Project' },
         { type: 'separator' },
         {
@@ -27,17 +32,13 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: false
+      nodeIntegration: true
     }
   } );
 
-  mainWindow.loadURL(
-    url.format( {
-      pathname: path.join( __dirname, '../editor/index.html' ),
-      protocol: 'file:',
-      slashes: true
-    } )
-  );
+  // mainWindow.loadFile( path.join( __dirname, '../editor/index.html' ) );
+  mainWindow.loadURL( 'http://localhost:4200' );
+
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 

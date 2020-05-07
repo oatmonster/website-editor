@@ -19,6 +19,7 @@
     "@angular/router": "~9.0.6",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
+    "ngx-electron": "^2.2.0",
     "path": "^0.12.7",
     "prismjs": "^1.19.0",
     "regenerator-runtime": "^0.13.5",

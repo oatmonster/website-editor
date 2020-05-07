@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { EditorComponent } from './editor/editor.component';
 import { BrowserComponent } from './browser/browser.component';
 
+import { NgxElectronModule } from 'ngx-electron';
+
 import { ApiService } from './api.service';
 import { LoginComponent } from './login/login.component';
 import { PreviewComponent } from './preview/preview.component';
@@ -19,6 +21,7 @@ import { PreviewComponent } from './preview/preview.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxElectronModule,
     MarkdownModule
   ],
   declarations: [
