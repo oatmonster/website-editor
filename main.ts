@@ -1,6 +1,4 @@
 import { app, BrowserWindow, Menu } from 'electron';
-import * as url from 'url';
-import * as path from 'path';
 
 let mainWindow: BrowserWindow;
 
@@ -14,6 +12,12 @@ function createWindow() {
           label: 'New Blog Post',
           click: async () => {
             mainWindow.webContents.send( 'newBlog', null );
+
+            let settingsWin = new BrowserWindow( {
+              width: 500,
+              height: 500
+            } );
+            settingsWin.loadURL( `file://${__dirname}/../editor/index.html#/editor` );
           }
         },
         { label: 'New Project' },
@@ -37,7 +41,8 @@ function createWindow() {
   } );
 
   // mainWindow.loadFile( path.join( __dirname, '../editor/index.html' ) );
-  mainWindow.loadURL( 'http://localhost:4200' );
+  mainWindow.loadURL( `file://${__dirname}/../editor/index.html` );
+  // mainWindow.loadURL( 'http://localhost:4200' );
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
