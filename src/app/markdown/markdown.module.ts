@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SanitizeSrcDirective } from './sanitize-src.directive';
-
 import { MarkdownRootComponent } from './markdown.component';
 import { MarkdownBlockComponent } from './block/block.component';
 import { MarkdownInlineComponent } from './inline/inline.component';
 import { HighlightComponent } from './highlight/highlight.component'
+import { IFrameComponent } from './iframe.component';
 import { markdownFactory } from './markdown-factory';
 
 
@@ -19,7 +18,7 @@ import { markdownFactory } from './markdown-factory';
     MarkdownInlineComponent,
     MarkdownBlockComponent,
     HighlightComponent,
-    SanitizeSrcDirective
+    IFrameComponent
   ],
   providers: [
     {

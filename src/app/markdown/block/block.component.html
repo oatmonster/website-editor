@@ -53,9 +53,7 @@
     <pre *ngSwitchCase="'code'" [language]="child.lang" [source]="child.value"></pre>
 
     <!-- Embedded video -->
-    <div *ngSwitchCase="'iframe'" class="embed-responsive embed-responsive-16by9 embed-video">
-      <iframe class="embed-responsive-item" [sanitizeSrc]="child.data.hProperties.src" allowfullscreen></iframe>
-    </div>
+    <md-iframe *ngSwitchCase="'iframe'" [src]="child.data.hProperties.src"></md-iframe>
 
   </ng-container>
 

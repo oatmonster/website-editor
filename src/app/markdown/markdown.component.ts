@@ -1,15 +1,14 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { MarkdownTreeService } from './tree/tree.service';
 import { MarkdownBlockComponent } from './block/block.component';
 import { mdContent, mdFootnoteDefinition } from './tree/tree-types';
 
 @Component( {
-  selector: '[markdown]',
+  selector: 'markdown',
   templateUrl: './block/block.component.html',
   styleUrls: [ './block/block.component.scss' ],
   providers: [ MarkdownTreeService ],
   encapsulation: ViewEncapsulation.None,
-  host: { 'class': 'markdown' }
 } )
 /** Renders a markdown text into an angular view */
 export class MarkdownRootComponent extends MarkdownBlockComponent {
