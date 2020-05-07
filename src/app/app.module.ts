@@ -11,6 +11,7 @@ import { BrowserComponent } from './browser/browser.component';
 
 import { ApiService } from './api.service';
 import { LoginComponent } from './login/login.component';
+import { PreviewComponent } from './preview/preview.component';
 
 @NgModule( {
   imports: [
@@ -24,7 +25,8 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     EditorComponent,
     BrowserComponent,
-    LoginComponent
+    LoginComponent,
+    PreviewComponent
   ],
   providers: [
     ApiService

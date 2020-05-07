@@ -50,10 +50,7 @@
   </div>
   <div class="col-6 border-left ">
     <div class="scroll">
-      <div class="container">
-        Preview goes here
-        <!-- <div *ngIf="md" [markdown]="md"></div> -->
-      </div>
+      <preview *ngIf="md" [rawMarkdown]="blogForm.value.content"></preview>
     </div>
   </div>
 </div>

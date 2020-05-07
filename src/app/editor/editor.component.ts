@@ -16,12 +16,12 @@ export class EditorComponent implements OnInit {
   constructor( private httpClient: HttpClient, private apiService: ApiService ) { }
 
   blogForm = new FormGroup( {
-    title: new FormControl(),
+    title: new FormControl( '' ),
     subtitle: new FormControl( '' ),
     date: new FormControl(),
     thumbnailUrl: new FormControl(),
     tags: new FormControl( '' ),
-    content: new FormControl(),
+    content: new FormControl( '' ),
   } );
 
   ngOnInit(): void {

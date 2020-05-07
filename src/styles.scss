@@ -1,12 +1,10 @@
 @import "../node_modules/prismjs/themes/prism.css";
-@import "../node_modules/bootstrap/scss/bootstrap";
 
 $theme-colors: (
   "dark": #222222
 );
 
 $font-family-sans-serif: 'Montserrat', sans-serif;
-$font-family-base: $font-family-sans-serif;
 $font-family-monospace: 'Source Code Pro', monospace;
 
 $border-radius: 0px;
