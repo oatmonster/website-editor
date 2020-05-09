@@ -4,7 +4,7 @@
   "main": "./dist/electron/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "ng build --prod && tsc main.ts --outDir ./dist/electron",
+    "build": "ng build --prod --base-href ./ && tsc main.ts --outDir ./dist/electron",
     "build-electron": "tsc main.ts --outDir ./dist/electron"
   },
   "private": true,

@@ -12,15 +12,14 @@ function createWindow() {
           label: 'New Blog Post',
           click: async () => {
             mainWindow.webContents.send( 'newBlog', null );
-
-            let settingsWin = new BrowserWindow( {
-              width: 500,
-              height: 500
-            } );
-            settingsWin.loadURL( `file://${__dirname}/../editor/index.html#/editor` );
           }
         },
-        { label: 'New Project' },
+        {
+          label: 'New Project',
+          click: async () => {
+            mainWindow.webContents.send( 'newProject', null );
+          }
+        },
         { type: 'separator' },
         {
           label: 'Exit',
@@ -40,9 +39,8 @@ function createWindow() {
     }
   } );
 
-  // mainWindow.loadFile( path.join( __dirname, '../editor/index.html' ) );
-  mainWindow.loadURL( `file://${__dirname}/../editor/index.html` );
-  // mainWindow.loadURL( 'http://localhost:4200' );
+  // mainWindow.loadURL( `file://${__dirname}/../editor/index.html` );
+  mainWindow.loadURL( 'http://localhost:4200' );
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();

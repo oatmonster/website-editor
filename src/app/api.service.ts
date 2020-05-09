@@ -49,7 +49,14 @@ export class ApiService {
       params = this.parseQuery( query );
     }
 
-    return this.httpClient.get<Array<IBlogPost>>( environment.apiUrl + 'blog', { params: params } ).pipe(
+    const httpOptions = {
+      headers: new HttpHeaders( {
+        'Authorization': 'Bearer ' + ( this.token || '' )
+      } ),
+      params: params
+    };
+
+    return this.httpClient.get<Array<IBlogPost>>( environment.apiUrl + 'blog', httpOptions ).pipe(
       tap( res => {
         console.log( res );
       } )
@@ -57,12 +64,14 @@ export class ApiService {
   }
 
   public getBlogPost( id: string ): Observable<IBlogPost> {
-    return this.httpClient.get<IBlogPost>( environment.apiUrl + 'blog/' + id ).pipe(
+    const httpOptions = {
+      headers: new HttpHeaders( {
+        'Authorization': 'Bearer ' + ( this.token || '' )
+      } )
+    };
+    return this.httpClient.get<IBlogPost>( environment.apiUrl + 'blog/' + id, httpOptions ).pipe(
       tap( res => {
         console.log( res );
-      } ),
-      catchError( err => {
-        return of( null );
       } )
     );
   }
@@ -109,6 +118,7 @@ export class ApiService {
 
 export interface IPost {
   id: string;
+  public?: boolean;
   title: string;
   subtitle?: string;
   thumbnailUrl: string;

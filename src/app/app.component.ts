@@ -12,8 +12,10 @@ export class AppComponent implements OnInit {
   constructor( private electronService: ElectronService ) { }
 
   ngOnInit(): void {
-    this.electronService.ipcRenderer.on( 'newBlog', ( event, args ) => {
-      console.log( 'New Blog' );
-    } );
+    if ( this.electronService.isElectronApp ) {
+      this.electronService.ipcRenderer.on( 'newBlog', ( event, args ) => {
+        console.log( 'New Blog' );
+      } );
+    }
   }
 }

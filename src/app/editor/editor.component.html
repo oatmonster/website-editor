@@ -1,11 +1,10 @@
-<div class="row no-gutters">
+<div class="window row no-gutters">
   <div class="col-6 border-right ">
     <div class="scroll">
       <div class="container">
-        <div>
-          <login></login>
-        </div>
-        <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+
+        <!-- Blog Form -->
+        <form *ngIf="type === 'blog'" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label>
               Title
@@ -39,18 +38,79 @@
           <div class="form-group">
             <label>
               Content
-              <textarea class="form-control" formControlName="content"></textarea>
+              <textarea class="form-control" rows="20" formControlName="content"></textarea>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Public
+              <input type="checkbox" formControlName="public">
             </label>
           </div>
           <button class="btn border" type="button">Cancel</button>
-          <button class="btn border" type="submit" [disabled]="!blogForm.valid">Submit</button>
+          <button class="btn border" type="submit"
+            [disabled]="!blogForm.valid">{{ new ? 'Submit' : 'Save Changes' }}</button>
+        </form>
+
+        <!-- Project Form -->
+        <form *ngIf="type === 'project'" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>
+              Title
+              <input type="text" class="form-control" formControlName="title">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Subtitle
+              <input type="text" class="form-control" formControlName="subtitle">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Thumbnail URL
+              <input type="text" class="form-control" formControlName="thumbnailUrl">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Tags
+              <input type="text" class="form-control" formControlName="tags">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Blog Posts
+              <input type="text" class="form-control" formControlName="blogPosts">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Content
+              <textarea class="form-control" rows="20" formControlName="content"></textarea>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Public
+              <input type="checkbox" formControlName="public">
+            </label>
+          </div>
+          <button class="btn border" type="button">Cancel</button>
+          <button class="btn border" type="submit"
+            [disabled]="!projectForm.valid">{{ new ? 'Submit' : 'Save Changes' }}</button>
         </form>
       </div>
     </div>
   </div>
   <div class="col-6 border-left ">
     <div class="scroll">
-      <preview *ngIf="md" [rawMarkdown]="blogForm.value.content"></preview>
+      <div class="menu border-bottom">
+        <button class="btn border" (click)="updatePreview()">Update</button>
+      </div>
+      <div class="container">
+        <markdown *ngIf="md" [markdown]="md"></markdown>
+      </div>
     </div>
   </div>
 </div>

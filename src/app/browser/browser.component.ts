@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IBlogPost, ApiService } from '../api.service';
 
 @Component( {
   selector: 'browser',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 } )
 export class BrowserComponent implements OnInit {
 
-  constructor() { }
+  public blogPosts: IBlogPost[];
+
+  public activeRow: IBlogPost = null;
+  public activeId: string = null;
+
+  constructor( private apiService: ApiService ) { }
 
   ngOnInit(): void {
+    this.apiService.getBlogPosts().subscribe( res => {
+      this.blogPosts = res;
+    } );
+  }
+
+  selectRow( post: IBlogPost ) {
+    if ( this.activeRow === post ) {
+      this.activeRow = null;
+      this.activeId = null;
+    } else {
+      this.activeRow = post;
+      this.activeId = post.id;
+    }
   }
 
 }

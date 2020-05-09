@@ -16,7 +16,6 @@ import { NgxElectronModule } from 'ngx-electron';
 
 import { ApiService } from './api.service';
 import { LoginComponent } from './login/login.component';
-import { PreviewComponent } from './preview/preview.component';
 
 @NgModule( {
   imports: [
@@ -24,7 +23,7 @@ import { PreviewComponent } from './preview/preview.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot( appRoutes, { useHash: true } ),
+    RouterModule.forRoot( appRoutes ),
     NgxElectronModule,
     MarkdownModule
   ],
@@ -32,8 +31,7 @@ import { PreviewComponent } from './preview/preview.component';
     AppComponent,
     EditorComponent,
     BrowserComponent,
-    LoginComponent,
-    PreviewComponent
+    LoginComponent
   ],
   providers: [
     ApiService

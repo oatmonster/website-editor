@@ -4,11 +4,15 @@ import { BrowserComponent } from './browser/browser.component';
 
 export const appRoutes: Routes = [
   {
-    path: 'editor',
+    path: 'edit/:type/:id',
     component: EditorComponent
   },
   {
-    path: '**',
+    path: 'edit/:type',
+    component: EditorComponent
+  },
+  {
+    path: '',
     component: BrowserComponent
   }
 ]
