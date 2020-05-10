@@ -1,21 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MarkdownModule } from './markdown/markdown.module';
+import { NgxElectronModule } from 'ngx-electron';
 
 import { appRoutes } from './routes';
 
 import { AppComponent } from './app.component';
 import { EditorComponent } from './editor/editor.component';
 import { BrowserComponent } from './browser/browser.component';
-
-import { NgxElectronModule } from 'ngx-electron';
+import { LoginComponent } from './login/login.component';
 
 import { ApiService } from './api.service';
-import { LoginComponent } from './login/login.component';
+import { AuthService } from './auth.service';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule( {
   imports: [
@@ -34,7 +35,13 @@ import { LoginComponent } from './login/login.component';
     LoginComponent
   ],
   providers: [
-    ApiService
+    ApiService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [ AppComponent ]
 } )

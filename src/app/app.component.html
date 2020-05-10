@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+<div *ngIf="loggedIn(); else login">
+  <router-outlet></router-outlet>
+</div>
+<ng-template #login>
+  <login></login>
+</ng-template>

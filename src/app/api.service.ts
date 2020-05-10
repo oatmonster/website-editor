@@ -8,27 +8,12 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class ApiService {
 
-  private token;
-
   constructor( private httpClient: HttpClient ) { }
-
-  public login( password: string ) {
-    return this.httpClient.post( environment.apiUrl + 'login', { 'password': password } ).pipe(
-      map( ( res: any ) => {
-        this.token = res.token;
-        return true;
-      } ),
-      catchError( err => {
-        return of( false );
-      } )
-    );
-  }
 
   public submitBlogPost( post ): Observable<boolean> {
     const httpOptions = {
       headers: new HttpHeaders( {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + ( this.token || '' )
+        'Content-Type': 'application/json'
       } )
     };
 
@@ -49,14 +34,7 @@ export class ApiService {
       params = this.parseQuery( query );
     }
 
-    const httpOptions = {
-      headers: new HttpHeaders( {
-        'Authorization': 'Bearer ' + ( this.token || '' )
-      } ),
-      params: params
-    };
-
-    return this.httpClient.get<Array<IBlogPost>>( environment.apiUrl + 'blog', httpOptions ).pipe(
+    return this.httpClient.get<Array<IBlogPost>>( environment.apiUrl + 'blog', { params: params } ).pipe(
       tap( res => {
         console.log( res );
       } )
@@ -64,12 +42,7 @@ export class ApiService {
   }
 
   public getBlogPost( id: string ): Observable<IBlogPost> {
-    const httpOptions = {
-      headers: new HttpHeaders( {
-        'Authorization': 'Bearer ' + ( this.token || '' )
-      } )
-    };
-    return this.httpClient.get<IBlogPost>( environment.apiUrl + 'blog/' + id, httpOptions ).pipe(
+    return this.httpClient.get<IBlogPost>( environment.apiUrl + 'blog/' + id ).pipe(
       tap( res => {
         console.log( res );
       } )

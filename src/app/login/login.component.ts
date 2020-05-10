@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
-import { ApiService } from '../api.service';
+import { AuthService } from '../auth.service';
 
 @Component( {
   selector: 'login',
@@ -11,16 +11,17 @@ import { ApiService } from '../api.service';
 export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup( {
-    password: new FormControl(),
+    username: new FormControl(),
+    password: new FormControl()
   } );
 
-  constructor( private apiService: ApiService ) { }
+  constructor( private authService: AuthService ) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    this.apiService.login( this.loginForm.value.password ).subscribe( res => {
+    this.authService.login( this.loginForm.value.username, this.loginForm.value.password ).subscribe( res => {
       this.loginForm.reset();
       if ( res ) {
         console.log( 'Login Successful' );
