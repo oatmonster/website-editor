@@ -16,6 +16,10 @@ export class BrowserComponent implements OnInit {
   constructor( private apiService: ApiService ) { }
 
   ngOnInit(): void {
+    this.refreshList();
+  }
+
+  refreshList(): void {
     this.apiService.getBlogPosts().subscribe( res => {
       this.blogPosts = res;
     } );
@@ -29,6 +33,15 @@ export class BrowserComponent implements OnInit {
       this.activeRow = post;
       this.activeId = post.id;
     }
+  }
+
+  delete( id: string ): void {
+    // TODO confirmation
+    this.apiService.deleteBlogPost( id ).subscribe( res => {
+      if ( res ) console.log( 'Deleted' );
+      else console.log( 'Not deleted' );
+      this.refreshList();
+    } )
   }
 
 }

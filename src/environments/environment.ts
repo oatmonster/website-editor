@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://alex-zhao-api.herokuapp.com/'
+  // apiUrl: 'http://localhost:3000/'
 };
 
 /*

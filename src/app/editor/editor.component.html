@@ -47,9 +47,11 @@
               <input type="checkbox" formControlName="public">
             </label>
           </div>
-          <button class="btn border" type="button">Cancel</button>
-          <button class="btn border" type="submit"
+          <button *ngIf="!new" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+          <button class="btn btn-success border float-right" type="submit"
             [disabled]="!blogForm.valid">{{ new ? 'Submit' : 'Save Changes' }}</button>
+          <button class="btn btn-secondary border float-right" type="button" (click)="cancel()">Cancel</button>
+
         </form>
 
         <!-- Project Form -->
@@ -96,7 +98,7 @@
               <input type="checkbox" formControlName="public">
             </label>
           </div>
-          <button class="btn border" type="button">Cancel</button>
+          <button class="btn border" type="button" (click)="cancel()">Cancel</button>
           <button class="btn border" type="submit"
             [disabled]="!projectForm.valid">{{ new ? 'Submit' : 'Save Changes' }}</button>
         </form>
@@ -106,7 +108,7 @@
   <div class="col-6 border-left ">
     <div class="scroll">
       <div class="menu border-bottom">
-        <button class="btn border" (click)="updatePreview()">Update</button>
+        <button class="btn border" type="button" (click)="updatePreview()">Update</button>
       </div>
       <div class="container">
         <markdown *ngIf="md" [markdown]="md"></markdown>

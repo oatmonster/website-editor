@@ -3,7 +3,7 @@
     <div class="scroll">
       <div class="menu border-bottom">
         <button class="btn" [disabled]="!activeId" [routerLink]="['edit/blog/' + activeId]">Edit</button>
-        <button class="btn" [disabled]="!activeId">Delete</button>
+        <button class="btn btn-danger" [disabled]="!activeId" (click)="delete(activeId)">Delete</button>
       </div>
       <table class="table table-hover">
         <thead>

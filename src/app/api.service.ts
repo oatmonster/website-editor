@@ -22,7 +22,37 @@ export class ApiService {
         return true;
       } ),
       catchError( err => {
-        console.log( err );
+        console.error( err );
+        return of( false );
+      } )
+    );
+  }
+
+  public updateBlogPost( id: string, post ): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders( {
+        'Content-Type': 'application/json'
+      } )
+    };
+
+    return this.httpClient.put( environment.apiUrl + 'blog/' + id, post, httpOptions ).pipe(
+      map( res => {
+        return true;
+      } ),
+      catchError( err => {
+        console.error( err );
+        return of( false );
+      } )
+    );
+  }
+
+  public deleteBlogPost( id: string ): Observable<boolean> {
+    return this.httpClient.delete( environment.apiUrl + 'blog/' + id ).pipe(
+      map( res => {
+        return true;
+      } ),
+      catchError( err => {
+        console.error( err );
         return of( false );
       } )
     );

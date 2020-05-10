@@ -46,16 +46,21 @@ export class EditorComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe( params => {
 
       // See if we're editing a blog post or a project
-      if ( params.get( 'type' ) !== 'blog' && params.get( 'type' ) !== 'project' ) this.router.navigate[ '' ];
+      if ( params.get( 'type' ) !== 'blog' && params.get( 'type' ) !== 'project' ) this.router.navigate( [ '' ] );
       this.type = params.get( 'type' );
 
       // Check if creating a new post
       this.new = !params.has( 'id' );
 
+      console.log( this.new );
+
       if ( this.type === 'blog' ) {
         if ( this.new ) {
 
         } else {
+
+          this.blogForm.get( 'title' ).disable();
+
           // Get the post to edit from the API
           this.apiService.getBlogPost( params.get( 'id' ) ).subscribe( res => {
             this.post = res;
@@ -73,6 +78,8 @@ export class EditorComponent implements OnInit {
         if ( this.new ) {
 
         } else {
+          this.projectForm.get( 'title' ).disable();
+
           // Get the post to edit from the API
           this.apiService.getProject( params.get( 'id' ) ).subscribe( res => {
             this.post = res;
@@ -90,31 +97,77 @@ export class EditorComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     // TODO
     // Update submit to check for type, if title changed
     // Add ngIf to form to change it based on edit type
+    if ( this.type === 'blog' ) {
 
-    console.log( this.blogForm.value );
-    this.apiService.submitBlogPost( {
-      title: this.blogForm.value.title,
-      subtitle: this.blogForm.value.subtitle,
-      date: this.blogForm.value.date,
-      thumbnailUrl: this.blogForm.value.thumbnailUrl,
-      tags: this.blogForm.value.tags.split( ' ' ),
-      content: this.blogForm.value.content
-    } ).subscribe( res => {
-      if ( res ) {
-        console.log( 'Post Successful' );
-        this.blogForm.reset();
+      console.log( this.blogForm.value );
+      if ( this.new ) {
+        this.apiService.submitBlogPost( {
+          title: this.blogForm.value.title,
+          subtitle: this.blogForm.value.subtitle,
+          date: this.blogForm.value.date,
+          thumbnailUrl: this.blogForm.value.thumbnailUrl,
+          tags: this.blogForm.value.tags.split( ' ' ),
+          content: this.blogForm.value.content,
+          public: this.blogForm.value.public
+        } ).subscribe( res => {
+          if ( res ) {
+            console.log( 'Post Successful' );
+            this.blogForm.reset();
+            this.updatePreview();
+            this.router.navigate( [ '' ] );
+          } else {
+            console.log( 'Post Failed' );
+          }
+        } );
       } else {
-        console.log( 'Post Failed' );
+        this.apiService.updateBlogPost( this.post.id, {
+          subtitle: this.blogForm.value.subtitle,
+          date: this.blogForm.value.date,
+          thumbnailUrl: this.blogForm.value.thumbnailUrl,
+          tags: this.blogForm.value.tags.split( ' ' ),
+          content: this.blogForm.value.content,
+          public: this.blogForm.value.public
+        } ).subscribe( res => {
+          if ( res ) {
+            console.log( 'Saved' );
+            this.blogForm.reset();
+            this.updatePreview();
+            this.router.navigate( [ '' ] );
+          } else {
+            console.log( 'Save Failed' );
+          }
+        } );
+
       }
-    } );
+
+    } else {
+
+    }
+
+
   }
 
   updatePreview(): void {
     this.md = this.blogForm.value.content;
+  }
+
+  cancel(): void {
+    //TODO Confirmation
+    this.router.navigate( [ '' ] );
+  }
+
+  delete(): void {
+    this.apiService.deleteBlogPost( this.post.id ).subscribe( res => {
+      if ( res ) {
+        console.log( 'Deleted' );
+        this.router.navigate( [ '' ] );
+      } else {
+        console.log( 'Not deleted' );
+      }
+    } );
   }
 
 }
