@@ -1,38 +1,36 @@
 <div class="window row no-gutters">
-  <div class="col-6 border-right ">
-    <div class="scroll">
-      <div class="menu border-bottom">
-        <button class="btn" [disabled]="!activeId" [routerLink]="['edit/blog/' + activeId]">Edit</button>
-        <button class="btn btn-danger" [disabled]="!activeId" (click)="delete(activeId)">Delete</button>
-      </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Subtitle</th>
-            <th scope="col">Post Date</th>
-            <th scope="col">Tags</th>
-            <th scope="col">Published</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let post of blogPosts" (click)="selectRow(post)"
-            [class]="{ 'bg-primary': post.id === activeId, 'text-light': post.id === activeId }">
-            <td>{{ post.title }}</td>
-            <td>{{ post.subtitle }}</td>
-            <td>{{ post.date }}</td>
-            <td>{{ post.tags }}</td>
-            <td>{{ post.public ? 'Yes' : 'No' }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="col-6 border-right scroll">
+    <div class="menu border-bottom">
+      <button class="btn" type="button" [routerLink]="['edit/blog']">New</button>
+      <button class="btn float-right" type="button" [disabled]="!activeId" (click)="delete(activeId)">Delete</button>
+      <button class="btn float-right" type="button" [disabled]="!activeId"
+        [routerLink]="['edit/blog/' + activeId]">Edit</button>
     </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Subtitle</th>
+          <th scope="col">Post Date</th>
+          <th scope="col">Tags</th>
+          <th scope="col">Published</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of blogPosts" (click)="selectRow(post)"
+          [class]="{ 'bg-primary': post.id === activeId, 'text-light': post.id === activeId }">
+          <td>{{ post.title }}</td>
+          <td>{{ post.subtitle }}</td>
+          <td>{{ post.date }}</td>
+          <td>{{ post.tags }}</td>
+          <td>{{ post.public ? 'Yes' : 'No' }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="col-6 border-left ">
-    <div class="scroll">
-      <div class="container">
-        <markdown *ngIf="activeRow" [markdown]="activeRow.content"></markdown>
-      </div>
+  <div class="col-6 border-left scroll">
+    <div class="container">
+      <markdown *ngIf="activeRow" [markdown]="activeRow.content"></markdown>
     </div>
   </div>
 </div>

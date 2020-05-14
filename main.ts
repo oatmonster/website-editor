@@ -29,7 +29,7 @@ function createWindow() {
     }
   ] );
 
-  Menu.setApplicationMenu( menu );
+  Menu.setApplicationMenu( null );
 
   mainWindow = new BrowserWindow( {
     width: 800,
@@ -39,11 +39,11 @@ function createWindow() {
     }
   } );
 
-  // mainWindow.loadURL( `file://${__dirname}/../editor/index.html` );
-  mainWindow.loadURL( 'http://localhost:4200' );
+  mainWindow.loadURL( `file://${__dirname}/../editor/index.html` );
+  // mainWindow.loadURL( 'http://localhost:4200' );
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.on( 'closed', function () {
     mainWindow = null;

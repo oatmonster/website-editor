@@ -1,11 +1,24 @@
 {
   "name": "editor",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "Alex Zhao",
   "main": "./dist/electron/main.js",
+  "license": "UNLICENSED",
+  "build": {
+    "appId": "Blog Editor",
+    "win": {
+      "target": "zip"
+    },
+    "files": [
+      "dist/editor/*",
+      "dist/electron/main.js"
+    ]
+  },
   "scripts": {
     "start": "electron .",
     "build": "ng build --prod --base-href ./ && tsc main.ts --outDir ./dist/electron",
-    "build-electron": "tsc main.ts --outDir ./dist/electron"
+    "build-electron": "tsc main.ts --outDir ./dist/electron",
+    "dist": "electron-builder"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +53,7 @@
     "@types/node": "^12.11.1",
     "@types/prismjs": "^1.16.0",
     "electron": "8.2.2",
+    "electron-builder": "^22.6.0",
     "ts-node": "~8.3.0",
     "typescript": "~3.7.5"
   }
