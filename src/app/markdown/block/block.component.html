@@ -53,7 +53,10 @@
     <pre *ngSwitchCase="'code'" [language]="child.lang" [source]="child.value"></pre>
 
     <!-- Embedded video -->
-    <md-iframe *ngSwitchCase="'iframe'" [src]="child.data.hProperties.src"></md-iframe>
+    <ng-container *ngSwitchCase="'iframe'">
+      <md-iframe [src]="child.data.hProperties.src"></md-iframe>
+      <br>
+    </ng-container>
 
   </ng-container>
 

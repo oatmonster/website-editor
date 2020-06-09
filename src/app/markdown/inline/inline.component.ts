@@ -2,6 +2,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { MarkdownTreeService } from '../tree/tree.service';
 import { mdPhrasingContent } from '../tree/tree-types';
 import { MarkdownRootComponent } from '../markdown.component';
+import { environment } from 'src/environments/environment';
 
 @Component( {
   selector: '[md-inline]',
@@ -27,5 +28,9 @@ export class MarkdownInlineComponent {
     this.root.navigate.emit( url );
     // Prevents default navigation towards href
     return false;
+  }
+
+  public imageUrl(): string {
+    return environment.imageUrl;
   }
 }

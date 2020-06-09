@@ -18,9 +18,13 @@ export class MarkdownRootComponent extends MarkdownBlockComponent {
   /** Returns the array of parsed footnotes */
   public get notes(): mdFootnoteDefinition[] { return this.tree.notes || []; }
 
+  @Input()
+  id: string;
+
   @Input( 'markdown' ) set parse( source: string | mdContent ) {
     // Parses the source md file into an mdAST syntax tree
     this.node = typeof source === 'string' ? this.tree.parse( source ) : source;
+    this.tree.id = this.id;
   }
 
   /** Navigation event emitted when a link is clicked on */

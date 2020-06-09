@@ -15,6 +15,7 @@ import {
 export class MarkdownTreeService {
 
   public root: mdRoot;
+  public id: string;
   public defs: mdDefinition[];
   public notes: mdFootnoteDefinition[];
 
