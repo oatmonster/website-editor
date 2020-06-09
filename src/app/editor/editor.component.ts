@@ -27,7 +27,6 @@ export class EditorComponent implements OnInit {
     title: new FormControl( '' ),
     subtitle: new FormControl( '' ),
     date: new FormControl( '' ),
-    thumbnailUrl: new FormControl( '' ),
     tags: new FormControl( '' ),
     content: new FormControl( '' ),
   } );
@@ -36,7 +35,6 @@ export class EditorComponent implements OnInit {
     public: new FormControl( false ),
     title: new FormControl( '' ),
     subtitle: new FormControl( '' ),
-    thumbnailUrl: new FormControl( '' ),
     tags: new FormControl( '' ),
     content: new FormControl( '' ),
     blogPosts: new FormControl( '' )
@@ -108,7 +106,6 @@ export class EditorComponent implements OnInit {
           title: this.blogForm.value.title,
           subtitle: this.blogForm.value.subtitle,
           date: this.blogForm.value.date,
-          thumbnailUrl: this.blogForm.value.thumbnailUrl,
           tags: this.blogForm.value.tags.split( ' ' ),
           content: this.blogForm.value.content,
           public: this.blogForm.value.public
@@ -126,7 +123,6 @@ export class EditorComponent implements OnInit {
         this.apiService.updateBlogPost( this.post.id, {
           subtitle: this.blogForm.value.subtitle,
           date: this.blogForm.value.date,
-          thumbnailUrl: this.blogForm.value.thumbnailUrl,
           tags: this.blogForm.value.tags.split( ' ' ),
           content: this.blogForm.value.content,
           public: this.blogForm.value.public

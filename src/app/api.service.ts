@@ -124,7 +124,6 @@ export interface IPost {
   public?: boolean;
   title: string;
   subtitle?: string;
-  thumbnailUrl: string;
   tags?: string[];
   content?: string;
 }
