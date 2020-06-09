@@ -21,10 +21,14 @@ export class MarkdownRootComponent extends MarkdownBlockComponent {
   @Input()
   id: string;
 
+  @Input()
+  type: 'blog' | 'project';
+
   @Input( 'markdown' ) set parse( source: string | mdContent ) {
     // Parses the source md file into an mdAST syntax tree
     this.node = typeof source === 'string' ? this.tree.parse( source ) : source;
     this.tree.id = this.id;
+    this.tree.type = this.type;
   }
 
   /** Navigation event emitted when a link is clicked on */

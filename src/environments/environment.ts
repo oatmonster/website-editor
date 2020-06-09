@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://alex-zhao-api.herokuapp.com/'
-  // apiUrl: 'http://localhost:3000/'
+  apiUrl: 'https://alex-zhao-api.herokuapp.com/',
+  imageUrl: 'https://www.alexzhao.me/images/'
 };
 
 /*

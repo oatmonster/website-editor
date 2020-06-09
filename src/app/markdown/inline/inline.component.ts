@@ -30,7 +30,7 @@ export class MarkdownInlineComponent {
     return false;
   }
 
-  public imageUrl(): string {
-    return environment.imageUrl;
+  public imageUrl( image: number, width: 1080 ): string {
+    return environment.imageUrl + this.tree.type + '/' + this.tree.id + '/' + image + '_' + width + 'w.jpg';
   }
 }
