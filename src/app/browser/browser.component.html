@@ -30,7 +30,7 @@
   </div>
   <div class="col-6 border-left scroll">
     <div class="container">
-      <markdown *ngIf="activeRow" [markdown]="activeRow.content"></markdown>
+      <markdown *ngIf="activeRow" [type]="'blog'" [id]="activeRow.id" [markdown]="activeRow.content"></markdown>
     </div>
   </div>
 </div>

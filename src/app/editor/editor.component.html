@@ -96,7 +96,7 @@
       <button class="btn border" type="button" (click)="updatePreview()">Update</button>
     </div>
     <div class="container">
-      <markdown *ngIf="md" [markdown]="md"></markdown>
+      <markdown *ngIf="md" [id]="post.id" [type]="type" [markdown]="md"></markdown>
     </div>
   </div>
 </div>
