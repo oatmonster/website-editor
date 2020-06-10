@@ -10,6 +10,8 @@ export class AuthService {
 
   private token: string;
 
+  private first = true;
+
   constructor( private httpClient: HttpClient ) { }
 
   public getToken(): string {
@@ -18,6 +20,10 @@ export class AuthService {
 
   public refreshToken(): void {
     this.token = undefined;
+  }
+
+  public firstLogin(): boolean {
+    return this.first;
   }
 
   public login( username: string, password: string ) {
@@ -30,6 +36,7 @@ export class AuthService {
     return this.httpClient.post( environment.apiUrl + 'login', { 'username': username, 'password': password }, httpOptions ).pipe(
       map( ( res: any ) => {
         this.token = res.token;
+        this.first = false;
         return true;
       } ),
       catchError( err => {

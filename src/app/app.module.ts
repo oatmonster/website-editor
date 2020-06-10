@@ -10,9 +10,9 @@ import { NgxElectronModule } from 'ngx-electron';
 import { appRoutes } from './routes';
 
 import { AppComponent } from './app.component';
-import { EditorComponent } from './editor/editor.component';
 import { BrowserComponent } from './browser/browser.component';
 import { LoginComponent } from './login/login.component';
+import { BlogFormComponent } from './blog-form/blog-form.component';
 
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
@@ -30,7 +30,7 @@ import { AuthInterceptor } from './auth.interceptor';
   ],
   declarations: [
     AppComponent,
-    EditorComponent,
+    BlogFormComponent,
     BrowserComponent,
     LoginComponent
   ],

@@ -1,9 +1,7 @@
 <div class="window row no-gutters">
   <div class="col-6 border-right scroll">
     <div class="container">
-
-      <!-- Blog Form -->
-      <form *ngIf="type === 'blog'" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label>
             Title
@@ -44,50 +42,6 @@
         <button class="btn btn-success border float-right" type="submit"
           [disabled]="!blogForm.valid">{{ new ? 'Submit' : 'Save Changes' }}</button>
         <button class="btn btn-secondary border float-right" type="button" (click)="cancel()">Cancel</button>
-
-      </form>
-
-      <!-- Project Form -->
-      <form *ngIf="type === 'project'" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label>
-            Title
-            <input type="text" class="form-control" formControlName="title">
-          </label>
-        </div>
-        <div class="form-group">
-          <label>
-            Subtitle
-            <input type="text" class="form-control" formControlName="subtitle">
-          </label>
-        </div>
-        <div class="form-group">
-          <label>
-            Tags
-            <input type="text" class="form-control" formControlName="tags">
-          </label>
-        </div>
-        <div class="form-group">
-          <label>
-            Blog Posts
-            <input type="text" class="form-control" formControlName="blogPosts">
-          </label>
-        </div>
-        <div class="form-group">
-          <label>
-            Content
-            <textarea class="form-control" rows="20" formControlName="content"></textarea>
-          </label>
-        </div>
-        <div class="form-group">
-          <label>
-            Public
-            <input type="checkbox" formControlName="public">
-          </label>
-        </div>
-        <button class="btn border" type="button" (click)="cancel()">Cancel</button>
-        <button class="btn border" type="submit"
-          [disabled]="!projectForm.valid">{{ new ? 'Submit' : 'Save Changes' }}</button>
       </form>
     </div>
   </div>
@@ -96,7 +50,7 @@
       <button class="btn border" type="button" (click)="updatePreview()">Update</button>
     </div>
     <div class="container">
-      <markdown *ngIf="md" [id]="post.id" [type]="type" [markdown]="md"></markdown>
+      <markdown *ngIf="md" [id]="post.id" [type]="'blog'" [markdown]="md"></markdown>
     </div>
   </div>
 </div>

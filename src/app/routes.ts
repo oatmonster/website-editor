@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
-import { EditorComponent } from './editor/editor.component';
+
 import { BrowserComponent } from './browser/browser.component';
+import { BlogFormComponent } from './blog-form/blog-form.component';
 
 export const appRoutes: Routes = [
   {
-    path: 'edit/:type/:id',
-    component: EditorComponent
+    path: 'edit/blog/:id',
+    component: BlogFormComponent
   },
   {
-    path: 'edit/:type',
-    component: EditorComponent
+    path: 'edit/blog',
+    component: BlogFormComponent
   },
   {
     path: '',

@@ -36,12 +36,12 @@ export class BrowserComponent implements OnInit {
   }
 
   delete( id: string ): void {
-    // TODO confirmation
-    this.apiService.deleteBlogPost( id ).subscribe( res => {
-      if ( res ) console.log( 'Deleted' );
-      else console.log( 'Not deleted' );
-      this.refreshList();
-    } )
+    if ( confirm( "Delete blog post?" ) ) {
+      this.apiService.deleteBlogPost( id ).subscribe( res => {
+        if ( res ) console.log( 'Deleted' );
+        else console.log( 'Not deleted' );
+        this.refreshList();
+      } )
+    }
   }
-
 }
