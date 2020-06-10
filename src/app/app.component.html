@@ -1,4 +1,4 @@
-<div [hidden]="!loggedIn()">
+<div *ngIf="!firstLogin()" [hidden]="!loggedIn()">
   <router-outlet></router-outlet>
 </div>
 <login *ngIf="!loggedIn()"></login>

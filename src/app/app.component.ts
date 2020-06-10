@@ -9,12 +9,16 @@ import { AuthService } from './auth.service';
   styleUrls: [ './app.component.scss' ]
 } )
 export class AppComponent implements OnInit {
-  title = 'editor';
+  title = 'Editor';
 
   constructor( private electronService: ElectronService, private authService: AuthService ) { }
 
   public loggedIn(): boolean {
     return !!this.authService.getToken();
+  }
+
+  public firstLogin(): boolean {
+    return this.authService.firstLogin();
   }
 
   ngOnInit(): void {
