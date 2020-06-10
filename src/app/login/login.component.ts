@@ -15,18 +15,22 @@ export class LoginComponent implements OnInit {
     password: new FormControl()
   } );
 
+  public loginError = false;
+
   constructor( private authService: AuthService ) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
+    this.loginError = false;
     this.authService.login( this.loginForm.value.username, this.loginForm.value.password ).subscribe( res => {
       this.loginForm.reset();
       if ( res ) {
         console.log( 'Login Successful' );
       } else {
         console.log( 'Login Failed' );
+        this.loginError = true;
       }
     } );
   }

@@ -1,6 +1,9 @@
 <div class="login">
   <div class="title">Alex Zhao</div>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="alert alert-danger" *ngIf="loginError">
+      Invalid Login Credentials
+    </div>
     <div class="form-group">
       <label class="w-100">
         Username
