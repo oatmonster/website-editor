@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { IBlogPost, ApiService } from '../api.service';
+import { DialogService } from '../dialog.service';
 
 @Component( {
   selector: 'browser',
@@ -15,7 +16,7 @@ export class BrowserComponent implements OnInit {
   public activeRow: IBlogPost = null;
   public activeId: string = null;
 
-  constructor( private apiService: ApiService, private router: Router ) { }
+  constructor( private apiService: ApiService, private router: Router, private dialogService: DialogService ) { }
 
   ngOnInit(): void {
     this.refreshList();
@@ -42,12 +43,12 @@ export class BrowserComponent implements OnInit {
   }
 
   delete( id: string ): void {
-    if ( confirm( "Delete blog post?" ) ) {
+    if ( this.dialogService.confirm( "Delete blog post?" ) ) {
       this.apiService.deleteBlogPost( id ).subscribe( res => {
         if ( res ) console.log( 'Deleted' );
         else console.log( 'Not deleted' );
         this.refreshList();
-      } )
+      } );
     }
   }
 }

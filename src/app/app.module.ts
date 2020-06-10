@@ -16,6 +16,7 @@ import { BlogFormComponent } from './blog-form/blog-form.component';
 
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
+import { DialogService } from './dialog.service';
 import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule( {
@@ -37,6 +38,7 @@ import { AuthInterceptor } from './auth.interceptor';
   providers: [
     ApiService,
     AuthService,
+    DialogService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

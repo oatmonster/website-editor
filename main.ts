@@ -42,22 +42,22 @@ function createWindow() {
 
   mainWindow.loadURL( `file://${__dirname}/../editor/index.html` );
 
-  mainWindow.on( 'close', function ( e ) {
+  mainWindow.on( 'close', function ( event ) {
     if ( dirty ) {
       var choice = require( 'electron' ).dialog.showMessageBoxSync( this,
         {
           type: 'question',
           buttons: [ 'Yes', 'No' ],
           title: 'Confirm',
-          message: 'Are you sure you want to quit?'
+          message: 'Discard unsaved changes?'
         } );
-      if ( choice == 1 ) {
-        e.preventDefault();
+      if ( choice === 1 ) {
+        event.preventDefault();
       }
     }
   } );
 
-  mainWindow.on( 'closed', function () {
+  mainWindow.on( 'closed', () => {
     mainWindow = null;
   } );
 }
@@ -70,12 +70,23 @@ ipcMain.on( 'formClean', () => {
   dirty = false;
 } );
 
+ipcMain.on( 'dialog', ( event, message ) => {
+  var choice = require( 'electron' ).dialog.showMessageBoxSync( mainWindow,
+    {
+      type: 'question',
+      buttons: [ 'Yes', 'No' ],
+      title: 'Confirm',
+      message: message
+    } );
+  event.returnValue = choice === 0;
+} );
+
 app.on( 'ready', createWindow );
 
-app.on( 'window-all-closed', function () {
+app.on( 'window-all-closed', () => {
   if ( process.platform !== 'darwin' ) app.quit();
 } );
 
-app.on( 'activate', function () {
+app.on( 'activate', () => {
   if ( mainWindow === null ) createWindow();
 } );

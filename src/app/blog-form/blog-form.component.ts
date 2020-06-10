@@ -1,10 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ElectronService } from 'ngx-electron';
 
 import { ApiService, IBlogPost } from '../api.service';
-
-import { ElectronService } from 'ngx-electron';
+import { DialogService } from '../dialog.service';
 
 @Component( {
   selector: 'blog-form',
@@ -23,7 +23,13 @@ export class BlogFormComponent implements OnInit {
   public deleteError = false;
   public submitError = false;
 
-  constructor( private apiService: ApiService, private activatedRoute: ActivatedRoute, private router: Router, private electronService: ElectronService ) { }
+  constructor(
+    private apiService: ApiService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private electronService: ElectronService,
+    private dialogService: DialogService
+  ) { }
 
   blogForm = new FormGroup( {
     public: new FormControl( false ),
@@ -134,7 +140,7 @@ export class BlogFormComponent implements OnInit {
 
   cancel(): void {
     if ( this.blogForm.dirty ) {
-      if ( confirm( "Discard unsaved changes?" ) ) {
+      if ( this.dialogService.confirm( "Discard unsaved changes?" ) ) {
         if ( this.electronService.isElectronApp ) {
           this.electronService.ipcRenderer.send( 'formClean' );
         }
@@ -149,7 +155,7 @@ export class BlogFormComponent implements OnInit {
   }
 
   delete(): void {
-    if ( confirm( "Delete blog post?" ) ) {
+    if ( this.dialogService.confirm( "Delete blog post?" ) ) {
       this.clearFlags();
       this.apiService.deleteBlogPost( this.post.id ).subscribe(
         res => {
