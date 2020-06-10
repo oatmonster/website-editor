@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -16,6 +16,10 @@ export class BlogFormComponent implements OnInit {
   public new: boolean;
 
   public md: string;
+
+  public saveError = false;
+  public deleteError = false;
+  public submitError = false;
 
   constructor( private apiService: ApiService, private activatedRoute: ActivatedRoute, private router: Router ) { }
 
@@ -57,9 +61,29 @@ export class BlogFormComponent implements OnInit {
     } );
   }
 
+  // Confirmation before leaving with unsaved changes
+  @HostListener( 'window:beforeunload', [ '$event' ] )
+  unloadNotification( $event: any ) {
+    if ( this.blogForm.dirty ) {
+      $event.returnValue = true;
+    }
+  }
+
+  updatePreview(): void {
+    this.md = this.blogForm.value.content;
+  }
+
+  private clearFlags(): void {
+    this.submitError = false;
+    this.saveError = false;
+    this.deleteError = false;
+  }
+
   onSubmit(): void {
     // TODO
     // Update submit to check if title changed
+
+    this.clearFlags();
 
     console.log( this.blogForm.value );
     if ( this.new ) {
@@ -70,16 +94,16 @@ export class BlogFormComponent implements OnInit {
         tags: this.blogForm.value.tags.split( ' ' ),
         content: this.blogForm.value.content,
         public: this.blogForm.value.public
-      } ).subscribe( res => {
-        if ( res ) {
+      } ).subscribe(
+        res => {
           console.log( 'Post Successful' );
-          this.blogForm.reset();
-          this.updatePreview();
           this.router.navigate( [ '' ] );
-        } else {
+        },
+        err => {
           console.log( 'Post Failed' );
+          this.submitError = true;
         }
-      } );
+      );
     } else {
       this.apiService.updateBlogPost( this.post.id, {
         subtitle: this.blogForm.value.subtitle,
@@ -87,25 +111,20 @@ export class BlogFormComponent implements OnInit {
         tags: this.blogForm.value.tags.split( ' ' ),
         content: this.blogForm.value.content,
         public: this.blogForm.value.public
-      } ).subscribe( res => {
-        if ( res ) {
+      } ).subscribe(
+        res => {
           console.log( 'Saved' );
-          this.blogForm.reset();
-          this.updatePreview();
           this.router.navigate( [ '' ] );
-        } else {
+        },
+        err => {
           console.log( 'Save Failed' );
+          this.saveError = true;
         }
-      } );
+      );
     }
   }
 
-  updatePreview(): void {
-    this.md = this.blogForm.value.content;
-  }
-
   cancel(): void {
-    //TODO Confirmation
     if ( this.blogForm.dirty ) {
       if ( confirm( "Discard unsaved changes?" ) ) {
         this.router.navigate( [ '' ] );
@@ -117,14 +136,17 @@ export class BlogFormComponent implements OnInit {
 
   delete(): void {
     if ( confirm( "Delete blog post?" ) ) {
-      this.apiService.deleteBlogPost( this.post.id ).subscribe( res => {
-        if ( res ) {
+      this.clearFlags();
+      this.apiService.deleteBlogPost( this.post.id ).subscribe(
+        res => {
           console.log( 'Deleted' );
           this.router.navigate( [ '' ] );
-        } else {
-          console.log( 'Not deleted' );
+        },
+        err => {
+          console.log( 'Delete Failed' );
+          this.deleteError = true;
         }
-      } );
+      );
     }
   }
 }

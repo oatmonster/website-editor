@@ -38,6 +38,15 @@
             <input type="checkbox" formControlName="public">
           </label>
         </div>
+        <div class="alert alert-danger" *ngIf="submitError">
+          Failed to submit blog post
+        </div>
+        <div class="alert alert-danger" *ngIf="saveError">
+          Failed to save changes
+        </div>
+        <div class="alert alert-danger" *ngIf="deleteError">
+          Failed to delete blog post
+        </div>
         <button *ngIf="!new" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
         <button class="btn btn-success border float-right" type="submit"
           [disabled]="!blogForm.valid">{{ new ? 'Submit' : 'Save Changes' }}</button>

@@ -10,52 +10,28 @@ export class ApiService {
 
   constructor( private httpClient: HttpClient ) { }
 
-  public submitBlogPost( post ): Observable<boolean> {
+  public submitBlogPost( post ): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders( {
         'Content-Type': 'application/json'
       } )
     };
 
-    return this.httpClient.post( environment.apiUrl + 'blog', post, httpOptions ).pipe(
-      map( res => {
-        return true;
-      } ),
-      catchError( err => {
-        console.error( err );
-        return of( false );
-      } )
-    );
+    return this.httpClient.post( environment.apiUrl + 'blog', post, httpOptions );
   }
 
-  public updateBlogPost( id: string, post ): Observable<boolean> {
+  public updateBlogPost( id: string, post ): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders( {
         'Content-Type': 'application/json'
       } )
     };
 
-    return this.httpClient.put( environment.apiUrl + 'blog/' + id, post, httpOptions ).pipe(
-      map( res => {
-        return true;
-      } ),
-      catchError( err => {
-        console.error( err );
-        return of( false );
-      } )
-    );
+    return this.httpClient.put( environment.apiUrl + 'blog/' + id, post, httpOptions );
   }
 
-  public deleteBlogPost( id: string ): Observable<boolean> {
-    return this.httpClient.delete( environment.apiUrl + 'blog/' + id ).pipe(
-      map( res => {
-        return true;
-      } ),
-      catchError( err => {
-        console.error( err );
-        return of( false );
-      } )
-    );
+  public deleteBlogPost( id: string ): Observable<any> {
+    return this.httpClient.delete( environment.apiUrl + 'blog/' + id );
   }
 
   public getBlogPosts( query?: { page?: number, tags?: string[] } ): Observable<Array<IBlogPost>> {
