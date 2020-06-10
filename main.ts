@@ -1,6 +1,7 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 
 let mainWindow: BrowserWindow;
+let dirty: boolean;
 
 function createWindow() {
 
@@ -40,15 +41,34 @@ function createWindow() {
   } );
 
   mainWindow.loadURL( `file://${__dirname}/../editor/index.html` );
-  // mainWindow.loadURL( 'http://localhost:4200' );
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.on( 'close', function ( e ) {
+    if ( dirty ) {
+      var choice = require( 'electron' ).dialog.showMessageBoxSync( this,
+        {
+          type: 'question',
+          buttons: [ 'Yes', 'No' ],
+          title: 'Confirm',
+          message: 'Are you sure you want to quit?'
+        } );
+      if ( choice == 1 ) {
+        e.preventDefault();
+      }
+    }
+  } );
 
   mainWindow.on( 'closed', function () {
     mainWindow = null;
   } );
 }
+
+ipcMain.on( 'formDirty', () => {
+  dirty = true;
+} );
+
+ipcMain.on( 'formClean', () => {
+  dirty = false;
+} );
 
 app.on( 'ready', createWindow );
 

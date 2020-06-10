@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiService, IBlogPost } from '../api.service';
 
+import { ElectronService } from 'ngx-electron';
+
 @Component( {
   selector: 'blog-form',
   templateUrl: './blog-form.component.html',
@@ -21,7 +23,7 @@ export class BlogFormComponent implements OnInit {
   public deleteError = false;
   public submitError = false;
 
-  constructor( private apiService: ApiService, private activatedRoute: ActivatedRoute, private router: Router ) { }
+  constructor( private apiService: ApiService, private activatedRoute: ActivatedRoute, private router: Router, private electronService: ElectronService ) { }
 
   blogForm = new FormGroup( {
     public: new FormControl( false ),
@@ -58,15 +60,15 @@ export class BlogFormComponent implements OnInit {
           this.blogForm.patchValue( { tags: tagString } );
         } );
       }
-    } );
-  }
 
-  // Confirmation before leaving with unsaved changes
-  @HostListener( 'window:beforeunload', [ '$event' ] )
-  unloadNotification( $event: any ) {
-    if ( this.blogForm.dirty ) {
-      $event.returnValue = true;
-    }
+      this.blogForm.valueChanges.subscribe( res => {
+        if ( this.blogForm.dirty ) {
+          if ( this.electronService.isElectronApp ) {
+            this.electronService.ipcRenderer.send( 'formDirty' );
+          }
+        }
+      } );
+    } );
   }
 
   updatePreview(): void {
@@ -97,6 +99,9 @@ export class BlogFormComponent implements OnInit {
       } ).subscribe(
         res => {
           console.log( 'Post Successful' );
+          if ( this.electronService.isElectronApp ) {
+            this.electronService.ipcRenderer.send( 'formClean' );
+          }
           this.router.navigate( [ '' ] );
         },
         err => {
@@ -114,6 +119,9 @@ export class BlogFormComponent implements OnInit {
       } ).subscribe(
         res => {
           console.log( 'Saved' );
+          if ( this.electronService.isElectronApp ) {
+            this.electronService.ipcRenderer.send( 'formClean' );
+          }
           this.router.navigate( [ '' ] );
         },
         err => {
@@ -127,9 +135,15 @@ export class BlogFormComponent implements OnInit {
   cancel(): void {
     if ( this.blogForm.dirty ) {
       if ( confirm( "Discard unsaved changes?" ) ) {
+        if ( this.electronService.isElectronApp ) {
+          this.electronService.ipcRenderer.send( 'formClean' );
+        }
         this.router.navigate( [ '' ] );
       }
     } else {
+      if ( this.electronService.isElectronApp ) {
+        this.electronService.ipcRenderer.send( 'formClean' );
+      }
       this.router.navigate( [ '' ] );
     }
   }
@@ -140,6 +154,9 @@ export class BlogFormComponent implements OnInit {
       this.apiService.deleteBlogPost( this.post.id ).subscribe(
         res => {
           console.log( 'Deleted' );
+          if ( this.electronService.isElectronApp ) {
+            this.electronService.ipcRenderer.send( 'formClean' );
+          }
           this.router.navigate( [ '' ] );
         },
         err => {

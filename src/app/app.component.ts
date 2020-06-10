@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ElectronService } from 'ngx-electron';
 
 import { AuthService } from './auth.service';
 
@@ -11,7 +10,7 @@ import { AuthService } from './auth.service';
 export class AppComponent implements OnInit {
   title = 'Editor';
 
-  constructor( private electronService: ElectronService, private authService: AuthService ) { }
+  constructor( private authService: AuthService ) { }
 
   public loggedIn(): boolean {
     return !!this.authService.getToken();
@@ -22,10 +21,5 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if ( this.electronService.isElectronApp ) {
-      this.electronService.ipcRenderer.on( 'newBlog', ( event, args ) => {
-        console.log( 'New Blog' );
-      } );
-    }
   }
 }
