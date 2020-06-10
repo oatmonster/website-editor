@@ -1,10 +1,10 @@
 <div class="window row no-gutters">
   <div class="col-6 border-right scroll">
     <div class="menu border-bottom">
-      <button class="btn" type="button" [routerLink]="['edit/blog']">New</button>
-      <button class="btn float-right" type="button" [disabled]="!activeId" (click)="delete(activeId)">Delete</button>
-      <button class="btn float-right" type="button" [disabled]="!activeId"
-        [routerLink]="['edit/blog/' + activeId]">Edit</button>
+      <button class="btn btn-danger" type="button" [disabled]="!activeId" (click)="delete( activeId )">Delete</button>
+      <button class="btn btn-success float-right" type="button" [routerLink]="[ 'edit/blog' ]">New</button>
+      <button class="btn btn-light float-right" type="button" [disabled]="!activeId"
+        [routerLink]="[ 'edit/blog/' + activeId ]">Edit</button>
     </div>
     <table class="table table-hover">
       <thead>
@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let post of blogPosts" (click)="selectRow(post)"
+        <tr *ngFor="let post of blogPosts" (click)="selectRow( post )" (dblclick)="open( post )"
           [class]="{ 'bg-primary': post.id === activeId, 'text-light': post.id === activeId }">
           <td>{{ post.title }}</td>
           <td>{{ post.subtitle }}</td>

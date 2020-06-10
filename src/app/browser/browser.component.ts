@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { IBlogPost, ApiService } from '../api.service';
 
 @Component( {
@@ -13,7 +15,7 @@ export class BrowserComponent implements OnInit {
   public activeRow: IBlogPost = null;
   public activeId: string = null;
 
-  constructor( private apiService: ApiService ) { }
+  constructor( private apiService: ApiService, private router: Router ) { }
 
   ngOnInit(): void {
     this.refreshList();
@@ -33,6 +35,10 @@ export class BrowserComponent implements OnInit {
       this.activeRow = post;
       this.activeId = post.id;
     }
+  }
+
+  open( post: IBlogPost ) {
+    this.router.navigate( [ 'edit', 'blog', post.id ] );
   }
 
   delete( id: string ): void {

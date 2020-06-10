@@ -41,7 +41,7 @@
         <button *ngIf="!new" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
         <button class="btn btn-success border float-right" type="submit"
           [disabled]="!blogForm.valid">{{ new ? 'Submit' : 'Save Changes' }}</button>
-        <button class="btn btn-secondary border float-right" type="button" (click)="cancel()">Cancel</button>
+        <button class="btn btn-light border float-right" type="button" (click)="cancel()">Cancel</button>
       </form>
     </div>
   </div>
