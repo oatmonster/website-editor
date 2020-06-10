@@ -5,7 +5,8 @@
   "main": "./dist/electron/main.js",
   "license": "UNLICENSED",
   "build": {
-    "appId": "Blog Editor",
+    "appId": "com.blog.editor",
+    "productName": "Editor",
     "win": {
       "target": "zip"
     },

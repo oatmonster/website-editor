@@ -1,6 +1,4 @@
-<div *ngIf="loggedIn(); else login">
+<div [hidden]="!loggedIn()">
   <router-outlet></router-outlet>
 </div>
-<ng-template #login>
-  <login></login>
-</ng-template>
+<login *ngIf="!loggedIn()"></login>
