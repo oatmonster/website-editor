@@ -42,13 +42,13 @@
     <blockquote *ngSwitchCase="'blockquote'" [md-block]="child"></blockquote>
 
     <!-- Left aligned block - Align plugin -->
-    <div *ngSwitchCase="'leftAligned'" md-align="left" [md-block]="child"></div>
+    <span *ngSwitchCase="'leftAligned'" md-align="left" style="float: left" [md-block]="child"></span>
 
     <!-- Center aligned block - Align plugin -->
-    <div *ngSwitchCase="'centerAligned'" md-align="center" [md-block]="child"></div>
+    <span *ngSwitchCase="'centerAligned'" md-align="center" [md-block]="child"></span>
 
     <!-- Right aligned block - Align plugin -->
-    <div *ngSwitchCase="'rightAligned'" md-align="right" [md-block]="child"></div>
+    <span *ngSwitchCase="'rightAligned'" md-align="right" style="float: right" [md-block]="child"></span>
 
     <!-- Code Block w/ syntax highlighting by Prism -->
     <pre *ngSwitchCase="'code'" [language]="child.lang" [source]="child.value"></pre>
