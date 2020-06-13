@@ -24,7 +24,7 @@ export class BrowserComponent implements OnInit {
 
   refreshList(): void {
     this.apiService.getBlogPosts().subscribe( res => {
-      this.blogPosts = res;
+      this.blogPosts = res.posts;
     } );
   }
 
