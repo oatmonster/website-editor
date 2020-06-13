@@ -24,8 +24,6 @@ export class MarkdownInlineComponent {
 
   // Navigation helper functions
   public navigate( url: string ): boolean {
-    // Relies on the root parent navigation mechanism 
-    this.root.navigate.emit( url );
     // Prevents default navigation towards href
     return false;
   }

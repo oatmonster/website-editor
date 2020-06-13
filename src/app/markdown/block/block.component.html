@@ -29,7 +29,8 @@
     <table *ngSwitchCase="'table'">
       <tbody>
         <tr *ngFor="let row of child.children">
-          <td *ngFor="let cell of row.children; index as i" [attr.align]="child.align[i]||''" [md-inline]="cell"></td>
+          <td *ngFor="let cell of row.children; index as i" [attr.md-align]="child.align[i]||''" [md-inline]="cell">
+          </td>
         </tr>
       </tbody>
     </table>
@@ -41,13 +42,13 @@
     <blockquote *ngSwitchCase="'blockquote'" [md-block]="child"></blockquote>
 
     <!-- Left aligned block - Align plugin -->
-    <span *ngSwitchCase="'leftAligned'" align="left" [md-block]="child"></span>
+    <div *ngSwitchCase="'leftAligned'" md-align="left" [md-block]="child"></div>
 
     <!-- Center aligned block - Align plugin -->
-    <span *ngSwitchCase="'centerAligned'" align="center" [md-block]="child"></span>
+    <div *ngSwitchCase="'centerAligned'" md-align="center" [md-block]="child"></div>
 
     <!-- Right aligned block - Align plugin -->
-    <span *ngSwitchCase="'rightAligned'" align="right" [md-block]="child"></span>
+    <div *ngSwitchCase="'rightAligned'" md-align="right" [md-block]="child"></div>
 
     <!-- Code Block w/ syntax highlighting by Prism -->
     <pre *ngSwitchCase="'code'" [language]="child.lang" [source]="child.value"></pre>

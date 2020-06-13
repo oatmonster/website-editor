@@ -30,7 +30,4 @@ export class MarkdownRootComponent extends MarkdownBlockComponent {
     this.tree.id = this.id;
     this.tree.type = this.type;
   }
-
-  /** Navigation event emitted when a link is clicked on */
-  @Output( 'navigate' ) navigate = new EventEmitter<string>();
 }

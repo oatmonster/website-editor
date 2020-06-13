@@ -1,20 +1,20 @@
 
-.markdown {
+markdown {
   // Forces all the elements to inline 
   &[inline] { * { display: inline; } }
 
   // Table cells alignement
   td {
-    &[align="left"] { text-align: left; }
-    &[align="center"] { text-align: center; }
-    &[align="right"] { text-align: right; }
+    &[md-align="left"] { text-align: left; }
+    &[md-align="center"] { text-align: center; }
+    &[md-align="right"] { text-align: right; }
   }
 
   // Block alignement
-  span {
+  div {
 
     // Aligns children headings and paragraphs
-    &[align="left"]  { 
+    &[md-align="left"]  { 
       & > h1, h2, h3, h4, h5, h6, p { 
         text-align: left; 
       }
@@ -24,7 +24,7 @@
       }
     }
       
-    &[align="center"] { 
+    &[md-align="center"] { 
       & > h1, h2, h3, h4, h5, h6, p { 
         text-align: center; 
       }
@@ -34,7 +34,7 @@
       }
     }
 
-    &[align="right"] { 
+    &[md-align="right"] { 
       & > h1, h2, h3, h4, h5, h6, p { 
         text-align: right; 
       }
