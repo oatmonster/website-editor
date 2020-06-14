@@ -28,7 +28,8 @@ export class MarkdownInlineComponent {
     return false;
   }
 
-  public imageUrl( image: number, width: 1080 ): string {
-    return environment.imageUrl + this.tree.type + '/' + this.tree.id + '/' + image + '_' + width + 'w.jpg';
+  public imageUrl( image: string, width: 1080 ): string {
+    let info = image.split( '.' );
+    return environment.imageUrl + this.tree.type + '/' + this.tree.id + '/' + info[ 0 ] + '_' + width + 'w.' + info[ 1 ];
   }
 }
