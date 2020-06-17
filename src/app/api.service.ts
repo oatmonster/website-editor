@@ -17,7 +17,7 @@ export class ApiService {
       } )
     };
 
-    return this.httpClient.post( environment.apiUrl + 'blog', post, httpOptions );
+    return this.httpClient.post( environment.apiUrl + '/blog', post, httpOptions );
   }
 
   public updateBlogPost( id: string, post ): Observable<any> {
@@ -27,11 +27,11 @@ export class ApiService {
       } )
     };
 
-    return this.httpClient.put( environment.apiUrl + 'blog/' + id, post, httpOptions );
+    return this.httpClient.put( environment.apiUrl + '/blog/' + id, post, httpOptions );
   }
 
   public deleteBlogPost( id: string ): Observable<any> {
-    return this.httpClient.delete( environment.apiUrl + 'blog/' + id );
+    return this.httpClient.delete( environment.apiUrl + '/blog/' + id );
   }
 
   public getBlogPosts( query?: { page?: number, tags?: string[] } ): Observable<{ posts: Array<IBlogPost>, count: number }> {
@@ -40,7 +40,7 @@ export class ApiService {
       params = this.parseQuery( query );
     }
 
-    return this.httpClient.get<{ posts: Array<IBlogPost>, count: number }>( environment.apiUrl + 'blog', { params: params } ).pipe(
+    return this.httpClient.get<{ posts: Array<IBlogPost>, count: number }>( environment.apiUrl + '/blog', { params: params } ).pipe(
       tap( res => {
         console.log( res );
       } )
@@ -48,7 +48,7 @@ export class ApiService {
   }
 
   public getBlogPost( id: string ): Observable<IBlogPost> {
-    return this.httpClient.get<IBlogPost>( environment.apiUrl + 'blog/' + id ).pipe(
+    return this.httpClient.get<IBlogPost>( environment.apiUrl + '/blog/' + id ).pipe(
       tap( res => {
         console.log( res );
       } )
@@ -60,7 +60,7 @@ export class ApiService {
     if ( query ) {
       params = this.parseQuery( query );
     }
-    return this.httpClient.get<Array<IProject>>( environment.apiUrl + 'projects', { params: params } ).pipe(
+    return this.httpClient.get<Array<IProject>>( environment.apiUrl + '/projects', { params: params } ).pipe(
       tap( res => {
         console.log( res );
       } )
@@ -68,7 +68,7 @@ export class ApiService {
   }
 
   public getProject( id: string ): Observable<IProject> {
-    return this.httpClient.get<IProject>( environment.apiUrl + 'projects/' + id ).pipe(
+    return this.httpClient.get<IProject>( environment.apiUrl + '/projects/' + id ).pipe(
       tap( res => {
         console.log( res );
       } )

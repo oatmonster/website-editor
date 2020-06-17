@@ -33,7 +33,7 @@ export class AuthService {
       } )
     };
 
-    return this.httpClient.post( environment.apiUrl + 'login', { 'username': username, 'password': password }, httpOptions ).pipe(
+    return this.httpClient.post( environment.apiUrl + '/login', { 'username': username, 'password': password }, httpOptions ).pipe(
       map( ( res: any ) => {
         this.token = res.token;
         this.first = false;

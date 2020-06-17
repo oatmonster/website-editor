@@ -30,6 +30,6 @@ export class MarkdownInlineComponent {
 
   public imageUrl( image: string, width: 1080 ): string {
     let info = image.split( '.' );
-    return environment.imageUrl + this.tree.type + '/' + this.tree.id + '/' + info[ 0 ] + '_' + width + 'w.' + info[ 1 ];
+    return environment.imageUrl + '/' + this.tree.type + '/' + this.tree.id + '/' + info[ 0 ] + '_' + width + 'w.' + info[ 1 ];
   }
 }
