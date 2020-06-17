@@ -1,5 +1,12 @@
-
 markdown {
+  // Enable selection
+  *, *::after, *::before {
+    -webkit-user-select: text !important;
+    -webkit-user-drag: auto !important;
+    -webkit-app-region: drag !important;
+    cursor: auto !important;
+  }
+
   // Forces all the elements to inline 
   &[inline] { * { display: inline; } }
 
