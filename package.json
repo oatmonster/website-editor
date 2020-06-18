@@ -1,6 +1,6 @@
 {
   "name": "editor",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "author": "Alex Zhao",
   "main": "./dist/electron/main.js",
   "license": "UNLICENSED",
