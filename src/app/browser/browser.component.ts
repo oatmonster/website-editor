@@ -34,12 +34,7 @@ export class BrowserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.queryParamSubscription = this.activatedRoute.queryParams.subscribe( params => {
       this.page = Math.max( 1, parseInt( params[ 'page' ], 10 ) || 1 );
-      this.apiService.getBlogPosts( { page: this.page } ).subscribe( res => {
-
-        this.blogPosts = res.posts;
-        this.pageCount = Math.ceil( res.count / this.pageSize );
-        this.updatePages();
-      } );
+      this.refreshList();
     } );
   }
 
@@ -48,7 +43,11 @@ export class BrowserComponent implements OnInit, OnDestroy {
   }
 
   refreshList(): void {
-    this.router.navigate( [ '' ], { queryParams: { page: this.page } } );
+    this.apiService.getBlogPosts( { page: this.page } ).subscribe( res => {
+      this.blogPosts = res.posts;
+      this.pageCount = Math.ceil( res.count / this.pageSize );
+      this.updatePages();
+    } );
   }
 
   selectRow( post: IBlogPost ) {
