@@ -27,6 +27,33 @@
         </tr>
       </tbody>
     </table>
+    <!-- Pagination -->
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [ngClass]="{ 'disabled': page <= 1 }">
+        <a class="page-link" rel="prev" [routerLink]="['']" [queryParams]="{ page: 1 }">
+          First
+        </a>
+      </li>
+      <li class="page-item" [ngClass]="{ 'disabled': page <= 1 }">
+        <a class="page-link" rel="prev" [routerLink]="['']" [queryParams]="{ page: page-1 }">
+          Prev
+        </a>
+      </li>
+      <li *ngFor="let pageLink of pageList" class="page-item" [ngClass]="{ 'active disabled': page === pageLink }">
+        <a class="page-link" [attr.rel]="page === pageLink-1 ? 'next' : page === pageLink+1 ? 'prev' : null"
+          [routerLink]="['']" [queryParams]="{ page: pageLink }">{{ pageLink }}</a>
+      </li>
+      <li class="page-item" [ngClass]="{ 'disabled': page >= pageCount }">
+        <a class=" page-link" rel="next" [routerLink]="['']" [queryParams]="{ page: page+1 }">
+          Next
+        </a>
+      </li>
+      <li class="page-item" [ngClass]="{ 'disabled': page >= pageCount }">
+        <a class=" page-link" rel="next" [routerLink]="['']" [queryParams]="{ page: pageCount }">
+          Last
+        </a>
+      </li>
+    </ul>
   </div>
   <div class="col-6 border-left scroll">
     <div class="container">

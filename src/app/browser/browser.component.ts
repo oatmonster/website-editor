@@ -1,31 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { IBlogPost, ApiService } from '../api.service';
 import { DialogService } from '../dialog.service';
+import { Subscription } from 'rxjs';
 
 @Component( {
   selector: 'browser',
   templateUrl: './browser.component.html',
   styleUrls: [ './browser.component.scss' ]
 } )
-export class BrowserComponent implements OnInit {
+export class BrowserComponent implements OnInit, OnDestroy {
 
   public blogPosts: IBlogPost[];
 
   public activeRow: IBlogPost = null;
   public activeId: string = null;
 
-  constructor( private apiService: ApiService, private router: Router, private dialogService: DialogService ) { }
+  public page: number;
+  public pageCount: number;
+  public pageList: number[];
+  private pageSize = 10;
+
+  private queryParamSubscription: Subscription;
+
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private dialogService: DialogService
+  ) { }
 
   ngOnInit(): void {
-    this.refreshList();
+    this.queryParamSubscription = this.activatedRoute.queryParams.subscribe( params => {
+      this.page = Math.max( 1, parseInt( params[ 'page' ], 10 ) || 1 );
+      this.apiService.getBlogPosts( { page: this.page } ).subscribe( res => {
+
+        this.blogPosts = res.posts;
+        this.pageCount = Math.ceil( res.count / this.pageSize );
+        this.updatePages();
+      } );
+    } );
+  }
+
+  ngOnDestroy(): void {
+    this.queryParamSubscription.unsubscribe();
   }
 
   refreshList(): void {
-    this.apiService.getBlogPosts().subscribe( res => {
-      this.blogPosts = res.posts;
-    } );
+    this.router.navigate( [ '' ], { queryParams: { page: this.page } } );
   }
 
   selectRow( post: IBlogPost ) {
@@ -49,6 +72,22 @@ export class BrowserComponent implements OnInit {
         else console.log( 'Not deleted' );
         this.refreshList();
       } );
+    }
+  }
+
+  private updatePages() {
+    const toDisplay = 5;
+    let minPage = this.page - Math.floor( toDisplay / 2 );
+    let maxPage = this.page + Math.floor( toDisplay / 2 );
+    let extraLeft = Math.max( minPage * -1 + 1, 0 );
+    let extraRight = Math.max( maxPage - this.pageCount, 0 );
+
+    maxPage = Math.min( maxPage + extraLeft, this.pageCount );
+    minPage = Math.max( 1, minPage - extraRight );
+
+    this.pageList = [];
+    for ( let i = minPage; i <= maxPage; i++ ) {
+      this.pageList.push( i );
     }
   }
 }
