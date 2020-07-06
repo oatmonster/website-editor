@@ -38,11 +38,12 @@
     </ng-container>
 
     <!-- Image -->
-    <img *ngSwitchCase="'image'" [src]="imageUrl(child.url, 1080)" [title]="_T(child.title)" [alt]="_T(child.alt)" />
+    <img *ngSwitchCase="'image'" [src]="imageUrl(child.url)" [title]="_T(child.title)" [alt]="_T(child.alt)" />
 
     <!-- Image Reference -->
     <ng-container *ngSwitchCase="'imageReference'">
-      <img *ngIf="tree.definition(child) as def" [src]="def.url" [title]="_T(def.title)" [alt]="_T(def.alt)" />
+      <img *ngIf="tree.definition(child) as def" [src]="imageUrl(def.url)" [title]="_T(def.title)"
+        [alt]="_T(def.alt)" />
     </ng-container>
 
   </ng-container>
