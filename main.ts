@@ -1,11 +1,37 @@
-import { app, BrowserWindow, Menu, MenuItem, ipcMain } from 'electron';
+import { app, BrowserWindow, Menu, MenuItem, ipcMain, MenuItemConstructorOptions, dialog } from 'electron';
+import * as fs from 'fs';
 
 let mainWindow: BrowserWindow;
 let dirty: boolean;
 
 function createWindow() {
-  // Clear default menu
-  Menu.setApplicationMenu( null );
+
+  const isMac = process.platform === 'darwin'
+
+  const template: MenuItemConstructorOptions[] = [
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Save Sitemap',
+          accelerator: 'CmdOrCtrl+D',
+          click: () => { mainWindow.webContents.send( 'sitemap' ) }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: isMac ? 'Quit' : 'Exit',
+          role: 'quit'
+        }
+      ]
+    },
+  ]
+
+  const menu = Menu.buildFromTemplate( template )
+
+  // Set application menu
+  Menu.setApplicationMenu( menu );
 
   mainWindow = new BrowserWindow( {
     width: 800,
@@ -17,6 +43,9 @@ function createWindow() {
   } );
 
   mainWindow.loadURL( `file://${__dirname}/../editor/index.html` );
+  // mainWindow.loadURL( 'http://localhost:4200' );
+
+  // mainWindow.webContents.openDevTools();
 
   // Right click menu
   mainWindow.webContents.on( 'context-menu', ( event, params ) => {
@@ -87,7 +116,7 @@ function createWindow() {
 
   mainWindow.on( 'close', function ( event ) {
     if ( dirty ) {
-      var choice = require( 'electron' ).dialog.showMessageBoxSync( this,
+      var choice = dialog.showMessageBoxSync( this,
         {
           type: 'question',
           buttons: [ 'Yes', 'No' ],
@@ -117,7 +146,7 @@ ipcMain.on( 'formClean', () => {
 
 // Popup a dialog and return the choice to the caller
 ipcMain.on( 'dialog', ( event, message ) => {
-  var choice = require( 'electron' ).dialog.showMessageBoxSync( mainWindow,
+  var choice = dialog.showMessageBoxSync( mainWindow,
     {
       type: 'question',
       buttons: [ 'Yes', 'No' ],
@@ -125,6 +154,19 @@ ipcMain.on( 'dialog', ( event, message ) => {
       message: message
     } );
   event.returnValue = choice === 0;
+} );
+
+ipcMain.on( 'sitemap', async ( event, sitemap ) => {
+  let save = await dialog.showSaveDialog( {
+    defaultPath: 'sitemap.xml'
+  } );
+  if ( !save.canceled ) {
+    try {
+      fs.writeFileSync( save.filePath, sitemap )
+    } catch ( err ) {
+      dialog.showErrorBox( 'ERROR: Failed to save sitemap', err );
+    }
+  }
 } );
 
 app.on( 'ready', createWindow );
