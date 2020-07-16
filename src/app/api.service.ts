@@ -5,7 +5,9 @@ import { tap, map, catchError } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 
-@Injectable()
+@Injectable( {
+  providedIn: 'root',
+} )
 export class ApiService {
 
   constructor( private httpClient: HttpClient ) { }
