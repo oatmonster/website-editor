@@ -71,7 +71,7 @@ export class SitemapService {
           a[ i ] = a[ i ].replace( /"/g, '&quot;' );
         } );
         sitemap += '\n\t\t<image:image>'
-        sitemap += `\n\t\t\t<image:loc>https://www.alexzhao.me/images/blog/${image[ 2 ]}</image:loc>`;
+        sitemap += `\n\t\t\t<image:loc>https://www.alexzhao.me/images/blog/${post.id}/${image[ 2 ]}</image:loc>`;
         sitemap += `\n\t\t\t<image:title>${image[ 3 ] || ''} | Alex Zhao</image:title>`;
         sitemap += `\n\t\t\t<image:caption>${image[ 2 ] || ''}</image:caption>`;
         sitemap += '\n\t\t</image:image>'
