@@ -1,11 +1,11 @@
 {
   "name": "editor",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "Alex Zhao",
   "main": "./dist/electron/main.js",
   "license": "UNLICENSED",
   "build": {
-    "appId": "com.blog.editor",
+    "appId": "me.alexzhao.blogeditor",
     "productName": "Editor",
     "win": {
       "target": "zip"

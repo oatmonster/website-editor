@@ -55,7 +55,7 @@ export class SitemapService {
 
       // Thumbnail
       sitemap += '\n\t\t<image:image>'
-      sitemap += `\n\t\t\t<image:loc>https://www.alexzhao.me/blog/${post.id}/thumbnail_1920w.jpg</image:loc>`;
+      sitemap += `\n\t\t\t<image:loc>https://www.alexzhao.me/images/blog/${post.id}/thumbnail_1920w.jpg</image:loc>`;
       sitemap += `\n\t\t\t<image:title>${post.title} | Alex Zhao</image:title>`;
       sitemap += `\n\t\t\t<image:caption>${post.subtitle || ''}</image:caption>`;
       sitemap += '\n\t\t</image:image>'
