@@ -19,7 +19,8 @@
     "start": "electron .",
     "build": "ng build --prod --base-href ./ && tsc main.ts --outDir ./dist/electron",
     "build-electron": "tsc main.ts --outDir ./dist/electron",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win --x64"
   },
   "private": true,
   "dependencies": {
