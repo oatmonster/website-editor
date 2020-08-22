@@ -1,6 +1,12 @@
 <div class="window row no-gutters">
   <div class="col-6 border-right scroll">
     <div class="container">
+      <h2 *ngIf="new; else edit">
+        New Blog Post
+      </h2>
+      <h2 #edit>
+        {{ post.id }}
+      </h2>
       <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label>

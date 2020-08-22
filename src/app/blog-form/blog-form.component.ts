@@ -46,13 +46,9 @@ export class BlogFormComponent implements OnInit {
       // Check if creating a new post
       this.new = !params.has( 'id' );
 
-      console.log( this.new );
-
       if ( this.new ) {
 
       } else {
-
-        this.blogForm.get( 'title' ).disable();
 
         // Get the post to edit from the API
         this.apiService.getBlogPost( params.get( 'id' ) ).subscribe( res => {
@@ -88,9 +84,6 @@ export class BlogFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // TODO
-    // Update submit to check if title changed
-
     this.clearFlags();
 
     console.log( this.blogForm.value );
@@ -117,6 +110,7 @@ export class BlogFormComponent implements OnInit {
       );
     } else {
       this.apiService.updateBlogPost( this.post.id, {
+        title: this.blogForm.value.title,
         subtitle: this.blogForm.value.subtitle,
         date: this.blogForm.value.date,
         tags: this.blogForm.value.tags.split( ' ' ),
