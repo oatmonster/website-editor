@@ -4,9 +4,11 @@
       <h2 *ngIf="new; else edit">
         New Blog Post
       </h2>
-      <h2 #edit>
-        {{ post.id }}
-      </h2>
+      <ng-template #edit>
+        <h2>
+          {{ post.id }}
+        </h2>
+      </ng-template>
       <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label>
