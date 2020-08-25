@@ -1,19 +1,17 @@
 <div class="window row no-gutters">
   <div class="col-6 border-right scroll">
     <div class="container">
-      <h2 *ngIf="new; else edit">
-        New Blog Post
-      </h2>
-      <ng-template #edit>
-        <h2>
-          {{ post.id }}
-        </h2>
-      </ng-template>
       <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label>
             Title
             <input type="text" class="form-control" formControlName="title">
+          </label>
+        </div>
+        <div class="form-group" *ngIf="!new">
+          <label>
+            ID
+            <input type="text" class="form-control" disabled formControlName="id">
           </label>
         </div>
         <div class="form-group">

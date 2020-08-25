@@ -34,6 +34,7 @@ export class BlogFormComponent implements OnInit {
   blogForm = new FormGroup( {
     public: new FormControl( false ),
     title: new FormControl( '' ),
+    id: new FormControl( '' ),
     subtitle: new FormControl( '' ),
     date: new FormControl( '' ),
     tags: new FormControl( '' ),
